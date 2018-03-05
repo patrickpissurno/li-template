@@ -4,7 +4,7 @@
   "description": "li-template JS in usage demo",
   "main": "demo.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./demo.js"
   },
   "repository": "https://github.com/patrickpissurno/li-template.git",
   "author": "Patrick Pissurno",

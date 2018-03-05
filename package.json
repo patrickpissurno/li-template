@@ -7,7 +7,7 @@
     "li-template": "./lit-cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./lit-cli.js"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
     "engine",
     "fastest"
   ],
-  "author": "Patrick Pissurno",
+  "author": "Patrick Pissurno <me@patrickpissurno.com.br> (https://patrickpissurno.com.br)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/patrickpissurno/li-template/issues"

@@ -54,7 +54,7 @@ You don't have to learn anything at all. You can just start writing normal ES6 J
 
 
 ## Basic syntax
-Inside ```${}``` you can use whatever from Javascript you would like to. Functions, methods, properties, process.env... Whatever. Just keep that whatever you do write in there, it would have to work with plain ````${}```` template literals in Node.js module context.
+Inside ```${}``` you can use whatever from Javascript you would like to. Functions, methods, properties, process.env... Whatever. Just keep in mind that whatever you do write in there, would have to work with plain ````${}```` template literals in Node.js module context.
 
 ### String template (replace)
 This one is just like plain ES6 template literals.
@@ -73,6 +73,10 @@ Like this: ```\$('.my-jquery-selector')```
 
 ## Take a look at the demo
 There is a [demo](https://github.com/patrickpissurno/li-template/tree/master/demo) where you can play around and learn by yourself. Just clone this repo and you'll find it inside the demo folder. Run ```npm install && node demo.js```and open your browser at [localhost:3000](http://localhost:3000) to play around a little bit.
+
+## Downloads
+- Source code on [GitHub](https://github.com/patrickpissurno/li-template)
+- Get it from [NPM](https://www.npmjs.com/package/li-template)
 
 ## License
 MIT License

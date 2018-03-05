@@ -191,3 +191,7 @@ if(cmd.input != null && cmd.output != null){
 
     })();
 }
+else
+{
+    console.error('Missing arguments. Run li-template --help for usage help');
+}
