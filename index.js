@@ -26,7 +26,7 @@ module.exports = function(){ return `<!doctype html>
             <h3 class="lead mb-5" style="font-size: 1.75rem">Native HTML templating engine with ES6 literals compiled into plain Node.js modules</h3>
 
             <h2>How it works</h2>
-            <p>li-template (pronounced "<i>lite and plate</i>", altogether) works by transpiling .lit template files (HTML + ES6 template literals) into plain ES6 template literals and then compiling them as Node.js modules. By doing this, you can harness maximum performance, as the Node's V8 JIT compiler can fully optimize.<br><br>This library also leverages the power of template literals by supporting some other cool stuff:</p>
+            <p>li-template (pronounced "<i>lite and plate</i>") works by transpiling .lit template files (HTML + ES6 template literals) into plain ES6 template literals and then compiling them as Node.js modules. By doing this, you can harness maximum performance, as the Node's V8 JIT compiler can fully optimize.<br><br>This library also leverages the power of template literals by supporting some other cool stuff:</p>
             <ul>
                 ${this.features ? `${this.features.map(item => `<li>${item}</li>`).join('')}` : ''}            </ul>
             <p>This templating engine was inspired by Mustache and is <b>intended to be used in a <i>logic-less</i> fashion.</b></p>
