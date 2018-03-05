@@ -3,8 +3,16 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Compiled HTML templates with ES6 literals for Node.js: li-template">
+        <meta name="description" content="li-template works by transpiling .lit template files (HTML + ES6 template literals) into plain ES6 template literals and then compiling them as Node.js modules. By doing this... Read more">
         <meta name="author" content="Patrick Pissurno">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@patrickpissurno">
+        <meta property="og:title" content="Native HTML templating engine with ES6 literals" />
+        <meta property="og:url" content="https://patrickpissurno.com.br/li-template/" />
+        <meta property="og:site_name" content="Documentation for li-template">
+        <meta property="og:image" content="https://patrickpissurno.com.br/li-template/seo.png" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:type" content="article" />
 
         <title>${this.title} | Native HTML templating engine with ES6 literals</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css" integrity="sha256-akwTLZec/XAFvgYgVH1T5/369lhA2Efr22xzCNl1nHs=" crossorigin="anonymous" />
