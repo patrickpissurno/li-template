@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Compiled HTML templates with ES6 literals for Node.js: li-template">
+        <meta name="author" content="Patrick Pissurno">
+
+        <title>li-template | Native HTML templating engine with ES6 literals</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css" integrity="sha256-akwTLZec/XAFvgYgVH1T5/369lhA2Efr22xzCNl1nHs=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <style> hr { margin-top: 2rem; margin-bottom: 2rem; } </style>
+    </head>
+
+    <body>
+        <div class="container pb-5">
+            <h1 class="display-4 mt-4 mb-3" style="line-height: 0.8!important">li-template</h1>
+            <h3 class="lead mb-5" style="font-size: 1.75rem">Native HTML templating engine with ES6 literals compiled into plain Node.js modules</h3>
+
+            <h2>How it works</h2>
+            <p>li-template (pronounced "<i>lite and plate</i>", altogether) works by transpiling .lit template files (HTML + ES6 template literals) into plain ES6 template literals and then compiling them as Node.js modules. By doing this, you can harness maximum performance, as the Node's V8 JIT compiler can fully optimize.<br><br>This library also leverages the power of template literals by supporting some other cool stuff:</p>
+            <ul>
+                <li>Template files are compiled into NodeJS modules and in-memory cached</li><li>Partials and compiled partials</li><li>Short-hand for <i>exists</i> statement</li><li>Short-hand for <i>non-exists or empty</i> statement</li><li>Short-hand for <i>loops</i></li><li>Every thing you can do with Javascript</li><li>Ultra small size</li>            </ul>
+            <p>This templating engine was inspired by Mustache and is <b>intended to be used in a <i>logic-less</i> fashion.</b></p>
+            <p class="h3 text-muted font-weight-light mb-3">However...</p>
+            <p>It was made in a way so you could use <b>as much logic as you would like to</b>. All things from Javascript can be used inside your templates.</p>
+    
+            <hr>
+            <h2>Information</h2>
+                        <p>This page was rendered by <b>li-template CLI</b> under <b>Node.js v8.9.1</b> and is hosted on GitHub pages. Yes, it's great for static generated content too.</p>
+            <hr>
+                <h2>Dead simple and hyper fast</h2>
+                <p>You don't have to learn anything at all. You can just start writing normal ES6 Javascript and do whatever you want. But to make thing even better, we've added a syntax-sugar on top of plain ES6 template literals, our so-called <b>short-hands</b>. They do the very same thing that you could do by writing plain javascript. But they're more compact and concise. There are just three:</p>
+
+                <h3>Exists <small>(<i>if something is not null</i>)</small></h3>
+                    <b>Short-hand</b>
+                    <br>
+                    <pre><code class="html">$(this.something?){&lt;b&gt;${this.something}&lt;&#x2F;b&gt;}</code></pre>
+                    <b>Transpiles into</b>
+                    <br>
+                    <pre class="mb-5"><code class="html">${this.something ? `&lt;b&gt;${this.something}&lt;&#x2F;b&gt;` : &#x27;&#x27;}</code></pre><h3>Non-exists or empty <small>(<i>if something is null or something.length === 0</i>)</small></h3>
+                    <b>Short-hand</b>
+                    <br>
+                    <pre><code class="html">$(!this.something?){&lt;b&gt;Empty&lt;&#x2F;b&gt;}</code></pre>
+                    <b>Transpiles into</b>
+                    <br>
+                    <pre class="mb-5"><code class="html">${this.something == null || this.something.length === 0 ? `&lt;b&gt;Empty&lt;&#x2F;b&gt;` : &#x27;&#x27;</code></pre><h3>Loops <small></small></h3>
+                    <b>Short-hand</b>
+                    <br>
+                    <pre><code class="html">$(this.names:name){&lt;b&gt;I&#x27;m ${name}&lt;&#x2F;b&gt;}</code></pre>
+                    <b>Transpiles into</b>
+                    <br>
+                    <pre class="mb-5"><code class="html">${this.names.map(x =&gt; `&lt;b&gt;I&#x27;m ${x.name}&lt;&#x2F;b&gt;`).join(&#x27;&#x27;)}</code></pre>
+
+                <h2>Basic syntax</h2>
+                <p class="mb-5">Inside <code class="html">${}</code> you can use whatever from Javascript you would like to. Functions, methods, properties, <code class="js">process.env</code>... Whatever. Just keep in mind that whatever you do write in there, would have to work with plain <code class="javascript">`${}`</code> template literals under a Node.js module context.</p>
+
+                <h3>String template <small>(replace)</small></h3>
+                <p>This one is just like plain ES6 template literals. Whatever you do write in there will be passed as is into the NodeJS compiled module</p>
+                <pre><code class="html">${this.something}</code></pre>
+                <p class="mb-5">In this case, it will be replaced at render time with <code class="js">this.something</code>'s value.</p>
+
+                <h3>Escaping content</h3>
+                <p>li-template by default <b>doesn't escape anything</b>. So you are 100% vulnerable to XSS attacks or something. This is intended by design, as we want to achieve <b>maximum performance</b>.</p>
+                <p class="mb-5">But this doesn't mean that we're going to leave you on your own. We offer a method that is accessible from within <b>ALL</b> .lit template files <b>that will escape just anything</b>. Just call <code class="js">${safe(this.somethingDangerous)}</code> and you'll be fine. It's easy!</p>
+
+                <h3>Escaping li-template</h3>
+                <p>Sometimes li-template may conflict with third-party libraries like <i>inline</i> jQuery. No problem! Just use the <i>backslash</i> (<code class="js">\</code>) before the dollar sign (<code class="js">$</code>) and <i>li-template</i> is going to ignore that tag.</p>
+                <p>Also, regular Javascript Template Literals rules apply. You'll have to escape those <i>literal markers</i> (<code class="js">`</code>) by using a <i>backslash</i> (<code class="js">\</code>). For displaying the backslash, just double it like this <code class="js">\\</code>.</p>            
+            <hr>
+
+                <h2>Take a look at this page's source</h2>
+                <h3 class="text-muted font-weight-light mt-3">index.lit</h3>
+                <pre><code class="html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;&gt;
+        &lt;meta name=&quot;description&quot; content=&quot;Compiled HTML templates with ES6 literals for Node.js: li-template&quot;&gt;
+        &lt;meta name=&quot;author&quot; content=&quot;Patrick Pissurno&quot;&gt;
+
+        &lt;title&gt;${this.title} | Native HTML templating engine with ES6 literals&lt;&#x2F;title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;https:&#x2F;&#x2F;cdnjs.cloudflare.com&#x2F;ajax&#x2F;libs&#x2F;highlight.js&#x2F;9.12.0&#x2F;styles&#x2F;atom-one-dark.min.css&quot; integrity=&quot;sha256-akwTLZec&#x2F;XAFvgYgVH1T5&#x2F;369lhA2Efr22xzCNl1nHs=&quot; crossorigin=&quot;anonymous&quot; &#x2F;&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;https:&#x2F;&#x2F;maxcdn.bootstrapcdn.com&#x2F;bootstrap&#x2F;4.0.0&#x2F;css&#x2F;bootstrap.min.css&quot; integrity=&quot;sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW&#x2F;dAiS6JXm&quot; crossorigin=&quot;anonymous&quot;&gt;
+        &lt;style&gt; hr { margin-top: 2rem; margin-bottom: 2rem; } &lt;&#x2F;style&gt;
+    &lt;&#x2F;head&gt;
+
+    &lt;body&gt;
+        &lt;div class=&quot;container pb-5&quot;&gt;
+            &lt;h1 class=&quot;display-4 mt-4 mb-3&quot; style=&quot;line-height: 0.8!important&quot;&gt;${this.title}&lt;&#x2F;h1&gt;
+            &lt;h3 class=&quot;lead mb-5&quot; style=&quot;font-size: 1.75rem&quot;&gt;Native HTML templating engine with ES6 literals compiled into plain Node.js modules&lt;&#x2F;h3&gt;
+
+            &lt;h2&gt;How it works&lt;&#x2F;h2&gt;
+            &lt;p&gt;li-template (pronounced &quot;&lt;i&gt;lite and plate&lt;&#x2F;i&gt;&quot;, altogether) works by transpiling .lit template files (HTML + ES6 template literals) into plain ES6 template literals and then compiling them as Node.js modules. By doing this, you can harness maximum performance, as the Node&#x27;s V8 JIT compiler can fully optimize.&lt;br&gt;&lt;br&gt;This library also leverages the power of template literals by supporting some other cool stuff:&lt;&#x2F;p&gt;
+            &lt;ul&gt;
+                $(this.features:item){&lt;li&gt;${item}&lt;&#x2F;li&gt;}
+            &lt;&#x2F;ul&gt;
+            &lt;p&gt;This templating engine was inspired by Mustache and is &lt;b&gt;intended to be used in a &lt;i&gt;logic-less&lt;&#x2F;i&gt; fashion.&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;
+            &lt;p class=&quot;h3 text-muted font-weight-light mb-3&quot;&gt;However...&lt;&#x2F;p&gt;
+            &lt;p&gt;It was made in a way so you could use &lt;b&gt;as much logic as you would like to&lt;&#x2F;b&gt;. All things from Javascript can be used inside your templates.&lt;&#x2F;p&gt;
+    
+            &lt;hr&gt;
+            &lt;h2&gt;Information&lt;&#x2F;h2&gt;
+            $(!this.static?){
+                &lt;p&gt;This page is being rendered by &lt;b&gt;li-template&lt;&#x2F;b&gt; and served by &lt;b&gt;Express 4&lt;&#x2F;b&gt; under &lt;b&gt;Node.js ${process.version}&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;
+            }
+            $(this.static?){
+                &lt;p&gt;This page was rendered by &lt;b&gt;li-template CLI&lt;&#x2F;b&gt; under &lt;b&gt;Node.js ${process.version}&lt;&#x2F;b&gt; and is hosted on GitHub pages. Yes, it&#x27;s great for static generated content too.&lt;&#x2F;p&gt;
+            }
+
+            $(this.syntax?){
+                &lt;hr&gt;
+                &lt;h2&gt;Dead simple and hyper fast&lt;&#x2F;h2&gt;
+                &lt;p&gt;You don&#x27;t have to learn anything at all. You can just start writing normal ES6 Javascript and do whatever you want. But to make thing even better, we&#x27;ve added a syntax-sugar on top of plain ES6 template literals, our so-called &lt;b&gt;short-hands&lt;&#x2F;b&gt;. They do the very same thing that you could do by writing plain javascript. But they&#x27;re more compact and concise. There are just three:&lt;&#x2F;p&gt;
+
+                $(this.syntax.shorthands:item){
+                    &lt;h3&gt;${item.title} &lt;small&gt;${item.titleHelp}&lt;&#x2F;small&gt;&lt;&#x2F;h3&gt;
+                    &lt;b&gt;Short-hand&lt;&#x2F;b&gt;
+                    &lt;br&gt;
+                    &lt;pre&gt;&lt;code class=&quot;html&quot;&gt;${safe(item.before)}&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+                    &lt;b&gt;Transpiles into&lt;&#x2F;b&gt;
+                    &lt;br&gt;
+                    &lt;pre class=&quot;mb-5&quot;&gt;&lt;code class=&quot;html&quot;&gt;${safe(item.after)}&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+                }
+
+                &lt;h2&gt;Basic syntax&lt;&#x2F;h2&gt;
+                &lt;p class=&quot;mb-5&quot;&gt;Inside &lt;code class=&quot;html&quot;&gt;\${}&lt;&#x2F;code&gt; you can use whatever from Javascript you would like to. Functions, methods, properties, &lt;code class=&quot;js&quot;&gt;process.env&lt;&#x2F;code&gt;... Whatever. Just keep in mind that whatever you do write in there, would have to work with plain &lt;code class=&quot;javascript&quot;&gt;\`\${}\`&lt;&#x2F;code&gt; template literals under a Node.js module context.&lt;&#x2F;p&gt;
+
+                &lt;h3&gt;String template &lt;small&gt;(replace)&lt;&#x2F;small&gt;&lt;&#x2F;h3&gt;
+                &lt;p&gt;This one is just like plain ES6 template literals. Whatever you do write in there will be passed as is into the NodeJS compiled module&lt;&#x2F;p&gt;
+                &lt;pre&gt;&lt;code class=&quot;html&quot;&gt;\${this.something}&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+                &lt;p class=&quot;mb-5&quot;&gt;In this case, it will be replaced at render time with &lt;code class=&quot;js&quot;&gt;this.something&lt;&#x2F;code&gt;&#x27;s value.&lt;&#x2F;p&gt;
+
+                &lt;h3&gt;Escaping content&lt;&#x2F;h3&gt;
+                &lt;p&gt;li-template by default &lt;b&gt;doesn&#x27;t escape anything&lt;&#x2F;b&gt;. So you are 100% vulnerable to XSS attacks or something. This is intended by design, as we want to achieve &lt;b&gt;maximum performance&lt;&#x2F;b&gt;.&lt;&#x2F;p&gt;
+                &lt;p class=&quot;mb-5&quot;&gt;But this doesn&#x27;t mean that we&#x27;re going to leave you on your own. We offer a method that is accessible from within &lt;b&gt;ALL&lt;&#x2F;b&gt; .lit template files &lt;b&gt;that will escape just anything&lt;&#x2F;b&gt;. Just call &lt;code class=&quot;js&quot;&gt;\${safe(this.somethingDangerous)}&lt;&#x2F;code&gt; and you&#x27;ll be fine. It&#x27;s easy!&lt;&#x2F;p&gt;
+
+                &lt;h3&gt;Escaping li-template&lt;&#x2F;h3&gt;
+                &lt;p&gt;Sometimes li-template may conflict with third-party libraries like &lt;i&gt;inline&lt;&#x2F;i&gt; jQuery. No problem! Just use the &lt;i&gt;backslash&lt;&#x2F;i&gt; (&lt;code class=&quot;js&quot;&gt;\\&lt;&#x2F;code&gt;) before the dollar sign (&lt;code class=&quot;js&quot;&gt;$&lt;&#x2F;code&gt;) and &lt;i&gt;li-template&lt;&#x2F;i&gt; is going to ignore that tag.&lt;&#x2F;p&gt;
+                &lt;p&gt;Also, regular Javascript Template Literals rules apply. You&#x27;ll have to escape those &lt;i&gt;literal markers&lt;&#x2F;i&gt; (&lt;code class=&quot;js&quot;&gt;\`&lt;&#x2F;code&gt;) by using a &lt;i&gt;backslash&lt;&#x2F;i&gt; (&lt;code class=&quot;js&quot;&gt;\\&lt;&#x2F;code&gt;). For displaying the backslash, just double it like this &lt;code class=&quot;js&quot;&gt;\\\\&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+            }
+            
+            $(this.source?){
+                &lt;hr&gt;
+
+                &lt;h2&gt;Take a look at this page&#x27;s source&lt;&#x2F;h2&gt;
+                &lt;h3 class=&quot;text-muted font-weight-light mt-3&quot;&gt;index.lit&lt;&#x2F;h3&gt;
+                &lt;pre&gt;&lt;code class=&quot;html&quot;&gt;${safe(this.source.index)}&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+                &lt;h3 class=&quot;text-muted font-weight-light mt-4&quot;&gt;footer.lit&lt;&#x2F;h3&gt;
+                &lt;pre&gt;&lt;code class=&quot;html&quot;&gt;${safe(this.source.footer)}&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+            }
+    
+            &lt;hr&gt;
+            &lt;h2&gt;Enjoying it?&lt;&#x2F;h2&gt;
+            &lt;p&gt;Give it a shot! It&#x27;s free and open-source!&lt;&#x2F;p&gt;
+            &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;patrickpissurno&#x2F;li-template&quot; class=&quot;btn btn-lg btn-outline-primary mb-2&quot; target=&quot;_blank&quot;&gt;&lt;i class=&quot;fab fa-github&quot;&gt;&lt;&#x2F;i&gt; Source code&lt;&#x2F;a&gt;
+            &lt;a href=&quot;https:&#x2F;&#x2F;www.npmjs.com&#x2F;package&#x2F;li-template&quot; class=&quot;btn btn-lg btn-outline-primary mb-2&quot; target=&quot;_blank&quot;&gt;&lt;i class=&quot;fab fa-npm&quot;&gt;&lt;&#x2F;i&gt; Get it now&lt;&#x2F;a&gt;
+
+        &lt;&#x2F;div&gt;
+
+        $(this.partials?){
+            ${this.partials.footer}
+        }
+
+        &lt;script src=&quot;https:&#x2F;&#x2F;cdnjs.cloudflare.com&#x2F;ajax&#x2F;libs&#x2F;jquery&#x2F;3.3.1&#x2F;jquery.min.js&quot; integrity=&quot;sha256-FgpCb&#x2F;KJQlLNfOu91ta32o&#x2F;NMZxltwRo8QtmkMRdAu8=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;&#x2F;script&gt;
+        &lt;script src=&quot;https:&#x2F;&#x2F;maxcdn.bootstrapcdn.com&#x2F;bootstrap&#x2F;4.0.0&#x2F;js&#x2F;bootstrap.min.js&quot; integrity=&quot;sha384-JZR6Spejh4U02d8jOt6vLEHfe&#x2F;JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;&#x2F;script&gt;
+        &lt;script src=&quot;https:&#x2F;&#x2F;cdnjs.cloudflare.com&#x2F;ajax&#x2F;libs&#x2F;highlight.js&#x2F;9.12.0&#x2F;highlight.min.js&quot; integrity=&quot;sha256-&#x2F;BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;&#x2F;script&gt;
+        &lt;script defer src=&quot;https:&#x2F;&#x2F;use.fontawesome.com&#x2F;releases&#x2F;v5.0.6&#x2F;js&#x2F;all.js&quot;&gt;&lt;&#x2F;script&gt;
+        &lt;script&gt;hljs.initHighlightingOnLoad();&lt;&#x2F;script&gt;
+    &lt;&#x2F;body&gt;
+&lt;&#x2F;html&gt;</code></pre>
+                <h3 class="text-muted font-weight-light mt-4">footer.lit</h3>
+                <pre><code class="html">&lt;footer class=&quot;bd-footer text-white bg-dark pt-3&quot;&gt;
+    &lt;div class=&quot;container p-2 px-3&quot;&gt;
+        &lt;p&gt;li-template was developed by &lt;a href=&quot;https:&#x2F;&#x2F;patrickpissurno.com.br&quot; target=&quot;_blank&quot; class=&quot;text-white&quot;&gt;Patrick Pissurno&lt;&#x2F;a&gt; and is licensed under the &lt;a class=&quot;text-white&quot; href=&quot;https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT&quot; target=&quot;_blank&quot;&gt;MIT license&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+        &lt;p&gt;&lt;small class=&quot;text-muted&quot;&gt;Did you know that this footer is in a separate file? Yes, it is.
+            
+            $(!this.static?){
+                It was compiled upon server startup and rendered as a partial. $(this.user?){Liking it, ${this.user.name}? Yep, you have all the data available from within those partials too.}&lt;&#x2F;small&gt;&lt;&#x2F;p&gt;
+            }
+            $(this.static?){
+                It was rendered as a partial into the main HTML file with li-template CLI. And you can still access all the available data from partials! Looks great, huh?
+            }
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;footer&gt;
+    </code></pre>    
+            <hr>
+            <h2>Enjoying it?</h2>
+            <p>Give it a shot! It's free and open-source!</p>
+            <a href="https://github.com/patrickpissurno/li-template" class="btn btn-lg btn-outline-primary mb-2" target="_blank"><i class="fab fa-github"></i> Source code</a>
+            <a href="https://www.npmjs.com/package/li-template" class="btn btn-lg btn-outline-primary mb-2" target="_blank"><i class="fab fa-npm"></i> Get it now</a>
+
+        </div>
+
+        <footer class="bd-footer text-white bg-dark pt-3">
+    <div class="container p-2 px-3">
+        <p>li-template was developed by <a href="https://patrickpissurno.com.br" target="_blank" class="text-white">Patrick Pissurno</a> and is licensed under the <a class="text-white" href="https://opensource.org/licenses/MIT" target="_blank">MIT license</a>.</p>
+        <p><small class="text-muted">Did you know that this footer is in a separate file? Yes, it is.
+            
+                        It was rendered as a partial into the main HTML file with li-template CLI. And you can still access all the available data from partials! Looks great, huh?
+    </div>
+</footer>
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </body>
+</html>
+        

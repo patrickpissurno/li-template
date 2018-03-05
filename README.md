@@ -72,7 +72,7 @@ Sometimes li-template may conflict with third-party libraries like inline jQuery
 Like this: ```\$('.my-jquery-selector')```
 
 ## Take a look at the demo
-There is a [demo](https://github.com/patrickpissurno/li-template/tree/master/demo) where you can play around and learn by yourself. Just clone this repo and you'll find it inside the demo folder. Run ```npm install && node demo.js```and open your browser at [localhost:3000](http://localhost:3000) to play around a little bit.
+There is a [demo](https://github.com/patrickpissurno/li-template/tree/master/demo) where you can play around and learn by yourself. Just clone this repo and you'll find it inside the demo folder. Run ```npm install && node demo.js``` and open your browser at [localhost:3000](http://localhost:3000) to play around a little bit.
 
 ## Downloads
 - Source code on [GitHub](https://github.com/patrickpissurno/li-template)
