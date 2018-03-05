@@ -102,6 +102,20 @@ function transpile(str){
 
 class Lit {
     /**
+     * Pre-compiles a template in order to use the view engine by passing its raw content
+     * @param {string} src Template source
+     * @returns The pre-compiled render module that is used to render the template as a string 
+     * @memberof Lit
+     */
+    precompile(src){
+        return `module.exports = function(){ return \`${
+            transpile(`  ${
+                src.replace(/\\\$\(/g, '\\$@(')
+            }  `).replace(/\\\$@\(/g, '\\$(')}
+        \`; };`;
+    }
+
+    /**
      * Compile a template in order to use the view engine by passing its raw content as string
      * @param {string} str Template raw content as string
      * @param {Object[]} partials Array of already compiled partial files
@@ -109,7 +123,7 @@ class Lit {
      * @returns The compiled render function that is used to render the template
      * @memberof Lit
      */
-    async compile(str, partials, filename){
+    async compile(str, partials, opt = { filename: null, precompiled: null }){
         const m = new module.constructor();
         m.paths = module.paths;
         let template = `
@@ -127,14 +141,10 @@ class Lit {
                     return htmlEscapes[match];
                 });
             };
-            module.exports = function(){ return \`${
-            transpile(`  ${
-                str.replace(/\\\$\(/g, '\\$@(')
-            }  `).replace(/\\\$@\(/g, '\\$(')}
-        \`; };`;
+            ${opt.precompiled == null ? this.precompile(str) : opt.precompiled}`;
         try
         {
-            m._compile(template, filename == null ? await rand() : filename);
+            m._compile(template, opt.filename == null ? await rand() : opt.filename);
         }
         catch(ex)
         {
@@ -167,6 +177,16 @@ class Lit {
             })));
         
         return await this.compile((await readFile(filename)).toString(), partials, filename);
+    }
+
+    /**
+     * Pre-compiles a template in order to use the view engine by passing its file name
+     * @param {string} filename Template file name
+     * @returns The pre-compiled render function that is used to render the template as a string
+     * @memberof Lit
+     */
+    async precompileFile(filename){        
+        return this.precompile((await readFile(filename)).toString());
     }
 };
 

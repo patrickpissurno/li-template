@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "HTML template literals view engine with compiler for plain Node.js modules",
   "main": "lit.js",
+  "bin": {
+    "li-template": "./lit-cli.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/patrickpissurno/li-template/issues"
   },
-  "homepage": "https://github.com/patrickpissurno/li-template#readme"
+  "homepage": "https://github.com/patrickpissurno/li-template#readme",
+  "dependencies": {
+    "commander": "^2.14.1"
+  }
 }
