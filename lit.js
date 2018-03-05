@@ -6,6 +6,7 @@
 const crypto = require('crypto');
 const util = require('util');
 const fs = require('fs');
+const path = require('path');
 const randomBytes = util.promisify(crypto.randomBytes);
 const readFile = util.promisify(fs.readFile);
 
@@ -171,12 +172,26 @@ class Lit {
      */
     async compileFile(filename, partials){
         if(partials != null)
-            partials = await Promise.all(partials.map(async x => ({
-                render: await this.compile((await readFile(x)).toString(), null, x.replace(/\..*/g, '') + '_' + filename),
-                name: x.replace(/\..*/g, '')
-            })));
+            partials = await this.compilePartials(partials, filename);
         
         return await this.compile((await readFile(filename)).toString(), partials, filename);
+    }
+
+    /**
+     * Compile partials from an string array of file names
+     * @param {string[]} partials An array containing the file names of all partials needed for this template
+     * @param {string} [filename] Base template file name
+     * @returns The compiled render function that is used to render the template
+     * @memberof Lit
+     */
+    async compilePartials(partials, filename){
+        if(partials == null)
+            return null;
+        
+        return await Promise.all(partials.map(async x => ({
+            render: await this.compile((await readFile(x)).toString(), null, path.parse(x).name + '_' + (filename == null ? await rand() : filename)),
+            name: path.parse(x).name
+        })));
     }
 
     /**

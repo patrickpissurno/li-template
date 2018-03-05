@@ -6,17 +6,18 @@ const path = require('path');
 const cmd = require('commander');
 const lit = require('./lit');
 
-cmd
-    .description('Command-line tool for pre-compiling or rendering li-template directly')
+cmd.description('Command-line tool for pre-compiling or rendering li-template directly')
     .option('-i, --input <input>', 'Input file or directory')
     .option('-o, --output <output>', 'Output file or directory')
     .option('-r --render', 'Tells li-tempate to look for JSON files and render them')
+    .option('-p --partials', 'Tells li-tempate to render partials')
     .parse(process.argv)
 
 if(cmd.input != null && cmd.output != null){
     let input = cmd.input;
     let output = cmd.output;
     let render = cmd.render != null;
+    let renderPartials = render && cmd.partials != null;
 
     let inputFiles = [];
     let outputDirectory;
@@ -60,7 +61,7 @@ if(cmd.input != null && cmd.output != null){
             outputDirectory = output;
     }
     catch(ex){
-        console.error('The specified output file doesn\'t exist. Stack:');
+        console.error('The specified output directory doesn\'t exist. Stack:');
         console.error(ex);
         process.exit(1);
     }
@@ -84,11 +85,25 @@ if(cmd.input != null && cmd.output != null){
             let data;
             try
             {
-                data = inputFiles.map(x => fs.readFileSync(x + '.json'));
-                data = data.map(x => JSON.parse(x));
+                data = inputFiles.map(x => {
+                    try
+                    {
+                        return JSON.parse(fs.readFileSync(x + '.json'))
+                    }
+                    catch(ex)
+                    {
+                        return null;
+                    }
+                });
+                
+                if(data.filter(x => x != null).length == 0)
+                {
+                    console.error('There are no .lit.json files. Stack:');
+                    process.exit(1);
+                }
             }
             catch(ex){
-                console.error('There was a problem reading your template.lit.json files. Stack:');
+                console.error('There was a problem reading your .lit.json files. Stack:');
                 console.error(ex);
                 process.exit(1);
             }
@@ -96,7 +111,26 @@ if(cmd.input != null && cmd.output != null){
             let compiled;
             try
             {
-                compiled = await Promise.all(precompiled.map(async x => await lit.compile('', null, { precompiled: x })));
+                let promises = [];
+                for(let i = 0; i<precompiled.length; i++)
+                {
+                    if(data[i] == null)
+                        promises.push(null);
+                    else
+                    {
+                        let partials = null;
+
+                        if(renderPartials && data[i].partials != null)
+                        {
+                            let partialsDir = path.dirname(inputFiles[i]);
+                            partials = await lit.compilePartials(data[i].partials.map(x => path.join(partialsDir, x)));
+                        }
+                        
+                        delete data[i].partials;
+                        promises.push(lit.compile('', partials, { precompiled: precompiled[i] }));
+                    }
+                }
+                compiled = await Promise.all(promises);
             }
             catch(ex){
                 console.error('There was a problem compiling your files to render them. Stack:');
@@ -107,7 +141,10 @@ if(cmd.input != null && cmd.output != null){
             try
             {
                 for(let i = 0; i<compiled.length; i++)
-                    rendered.push(compiled[i](data[i]));
+                {
+                    if(compiled[i] != null)
+                        rendered.push(compiled[i](data[i]));
+                }
             }
             catch(ex){
                 console.error('There was a problem rendering your template files. Stack:');

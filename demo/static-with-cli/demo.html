@@ -6,77 +6,29 @@
         <meta name="description" content="Compiled HTML templates with ES6 literals for Node.js: li-template">
         <meta name="author" content="Patrick Pissurno">
 
-        <title>${this.title}</title>
+        <title>li-template demo</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css" integrity="sha256-akwTLZec/XAFvgYgVH1T5/369lhA2Efr22xzCNl1nHs=" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
 
     <body>
         <div class="container pb-5">
-            <h1 class="display-4 mt-4 mb-3" style="line-height: 0.8!important">${this.title} page</h1>
+            <h1 class="display-4 mt-4 mb-3" style="line-height: 0.8!important">li-template demo page</h1>
             <h3 class="lead mb-5" style="font-size: 1.75rem">Here you can see li-template in action</h3>
-            $(this.user?){
-                <p>
-                    My name is ${this.user.name} and I'm ${this.user.age} years old.<br>
-                    My followers on some social network:
-                    <ul>
-                        $(this.user.followers:follower){
-                            <li><b>${ follower.name }</b>, which has ${follower.friends.length} friends: <ul>
-                                $(follower.friends:friend){
-                                    <li>${friend}</li>
-                                }
-                            </ul></li>
-                        }
-                    </ul>
-                    $(!this.user.followers?){ None }
-                </p>
-            }
-    
-            $(!this.static?){
-                $(!this.user?){
-                    <p>Wanna see something cool? Fill the following input fields and hit submit</p>
-                    <form class="form-inline" action="/" method="GET">
-                        <div class="form-group mb-2">
-                            <label for="name" class="sr-only">Name</label>
-                            <input class="form-control" id="name" name="name" type="text" placeholder="Your name" required>
-                        </div>
-                        <div class="form-group mx-sm-3 mb-2">
-                            <label for="age" class="sr-only">Age</label>
-                            <input class="form-control" id="age" name="age" type="number" placeholder="Your age" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2">Submit</button>
-                    </form>
-                }
-
-                <hr>
-            }
-    
+                
+                
             <h2>Status</h2>
-            $(!this.static?){
-                <p>This page is being rendered by <b>li-template</b> and served by <b>Express 4</b> under <b>Node.js ${process.version}</b></p>
-            }
-            $(this.static?){
-                <p>This page was rendered by <b>li-template CLI</b> under <b>Node.js ${process.version}</b>. Yes, it's great for static generated content too.</p>
-            }
-    
+                        <p>This page was rendered by <b>li-template CLI</b> under <b>Node.js v8.9.1</b>. Yes, it's great for static generated content too.</p>    
             <hr>
             <h2>How it works</h2>
             <p>li-template (pronounced "<i>lite and plate</i>", altogether) works by transpiling .lit template files (HTML + ES6 template literals) into plain ES6 template literals and then compiling them as Node.js modules. By doing this, you can harness maximum performance, as the Node's V8 JIT compiler can fully optimize.<br><br>This library also leverages the power of template literals by supporting some other cool stuff:</p>
             <ul>
-                $(this.features:item){<li>${item}</li>}
-            </ul>
+                <li>Template files are compiled into NodeJS modules and in-memory cached</li><li>Partials and compiled partials</li><li>Short-hand for <i>exists</i> statement</li><li>Short-hand for <i>non-exists or empty</i> statement</li><li>Short-hand for <i>loops</i></li><li>Every thing you can do with Javascript</li><li>Ultra small size</li>            </ul>
             <p>This templating engine was inspired by Mustache and is <b>intended to be used in a <i>logic-less</i> fashion.</b></p>
             <p class="h3 text-muted font-weight-light mb-3">However...</p>
             <p>It was made in a way so you could use <b>as much logic as you would like to</b>. All things from Javascript can be used inside your templates.</p>
     
-            $(this.source?){
-                <h2>Would you like to sneak peak inside this page's source? <span class="font-weight-light">Here it is:</span></h2>
-                <h3 class="text-muted font-weight-light">demo.html</h3>
-                <pre><code class="html">${safe(this.source.demo)}</code></pre>
-                <h3 class="text-muted font-weight-light">footer.html</h3>
-                <pre><code class="html">${safe(this.source.footer)}</code></pre>
-            }
-    
+                
             <hr>
             <h2>Enjoying it?</h2>
             <p>Give it a shot! It's free and open-source!</p>
@@ -85,9 +37,15 @@
 
         </div>
 
-        $(this.partials?){
-            ${this.partials.footer}
-        }
+        <footer class="bd-footer text-white bg-dark pt-3">
+    <div class="container p-2 px-3">
+        <p>li-template was developed by <a href="https://patrickpissurno.com.br" target="_blank" class="text-white">Patrick Pissurno</a> and is licensed under the <a class="text-white" href="https://opensource.org/licenses/MIT" target="_blank">MIT license</a>.</p>
+        <p><small class="text-muted">Did you know that this footer is in a separate file? Yes, it is.
+            
+                        It was rendered as a partial into the main HTML file with li-template CLI. And you can still access all the available data from partials! Looks great, huh?
+    </div>
+</footer>
+        
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -96,3 +54,4 @@
         <script>hljs.initHighlightingOnLoad();</script>
     </body>
 </html>
+        
