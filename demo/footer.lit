@@ -1,0 +1,7 @@
+<footer class="bd-footer text-white bg-dark pt-3">
+    <div class="container p-2 px-3">
+        <p>li-template was developed by <a href="https://patrickpissurno.com.br" target="_blank" class="text-white">Patrick Pissurno</a> and is licensed under the <a class="text-white" href="https://opensource.org/licenses/MIT" target="_blank">MIT license</a>.</p>
+        <p><small class="text-muted">Did you know that this footer is in a separate file? Yes, it is. It was compiled upon server startup and rendered as a partial. $(this.user?){Liking it, ${this.user.name}? Yep, you have all the data available from within those partials too.}</small></p>
+    </div>
+</footer>
+    

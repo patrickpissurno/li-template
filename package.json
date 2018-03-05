@@ -1,0 +1,29 @@
+{
+  "name": "li-template",
+  "version": "1.0.0",
+  "description": "HTML template literals view engine with compiler for plain Node.js modules",
+  "main": "lit.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrickpissurno/li-template.git"
+  },
+  "keywords": [
+    "es6",
+    "literals",
+    "html",
+    "compiler",
+    "render",
+    "view",
+    "engine",
+    "fastest"
+  ],
+  "author": "Patrick Pissurno",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/patrickpissurno/li-template/issues"
+  },
+  "homepage": "https://github.com/patrickpissurno/li-template#readme"
+}

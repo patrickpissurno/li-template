@@ -1,0 +1,15 @@
+{
+  "name": "li-template-demo",
+  "version": "1.0.0",
+  "description": "li-template JS in usage demo",
+  "main": "demo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "https://github.com/patrickpissurno/li-template.git",
+  "author": "Patrick Pissurno",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
