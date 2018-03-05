@@ -54,12 +54,12 @@ You don't have to learn anything at all. You can just start writing normal ES6 J
 
 
 ## Basic syntax
-Inside ${} you can use whatever from Javascript you would like to. Functions, methods, properties, process.env... Whatever. Just keep that whatever you do write in there, it would have to work with plain `${}` template literals in Node.js module context.
+Inside ```${}``` you can use whatever from Javascript you would like to. Functions, methods, properties, process.env... Whatever. Just keep that whatever you do write in there, it would have to work with plain ````${}```` template literals in Node.js module context.
 
 ### String template (replace)
 This one is just like plain ES6 template literals.
 
-${this.something}
+```${this.something}```
 
 It will be replaced at render time with _this.something_'s value.
 
@@ -69,7 +69,7 @@ li-template by default **doesn't escape anything**. So you are 100% vulnerable t
 ### Escaping li-template
 Sometimes li-template may conflict with third-party libraries like inline jQuery. No problem! Just use the backslash before the dollar sign and li-template is going to ignore that tag.
 
-Like this: \$('.my-jquery-selector')
+Like this: ```\$('.my-jquery-selector')```
 
 ## Take a look at the demo
 There is a [demo](https://github.com/patrickpissurno/li-template/tree/master/demo) where you can play around and learn by yourself. Just clone this repo and you'll find it inside the demo folder. Run ```npm install && node demo.js```and open your browser at [localhost:3000](http://localhost:3000) to play around a little bit.
