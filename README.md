@@ -64,7 +64,7 @@ This one is just like plain ES6 template literals.
 It will be replaced at render time with _this.something_'s value.
 
 ### Escaping content
-li-template by default **doesn't escape anything**. So you are 100% vulnerable to XSS attacks or something. This is intended by design, as we want to achieve **maximum performance**. But this doesn't mean that we're going to leave you on your own. We offer a method that is accessible from within **ALL** .lit template files **that will escape anything**. Just call ${safe(this.somethingDangerous)} and you'll be fine. It's easy!
+li-template by default **doesn't escape anything**. So you are 100% vulnerable to XSS attacks or something. This is intended by design, as we want to achieve **maximum performance**. But this doesn't mean that we're going to leave you on your own. We offer a method that is accessible from within **ALL** .lit template files **that will escape anything**. Just call ```${safe(this.somethingDangerous)}``` and you'll be fine. It's easy!
 
 ### Escaping li-template
 Sometimes li-template may conflict with third-party libraries like inline jQuery. No problem! Just use the backslash before the dollar sign and li-template is going to ignore that tag.
