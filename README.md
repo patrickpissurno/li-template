@@ -1,6 +1,13 @@
 # li-template
 HTML template literals view engine with compiler for plain Node.js modules
 
+## Official page
+Documentation and examples are available at [https://patrickpissurno.com.br/li-template](https://patrickpissurno.com.br/li-template)
+
+## Downloads
+- Source code on [GitHub](https://github.com/patrickpissurno/li-template)
+- Get it from [NPM](https://www.npmjs.com/package/li-template)
+
 ## How it works
 li-template (pronounced "_lite and plate_") works by **transpiling** .lit template files (HTML + ES6 template literals) into plain ES6 template literals and then **compiling them as Node.js modules**. By doing this, you can harness **maximum performance**, as the Node's V8 JIT compiler can fully optimize.
 
@@ -72,16 +79,17 @@ Sometimes li-template may conflict with third-party libraries like inline jQuery
 Like this: ```\$('.my-jquery-selector')```
 
 ## Take a look at the demo
-There is a [demo](https://github.com/patrickpissurno/li-template/tree/master/demo) where you can play around and learn by yourself. Just clone this repo and you'll find it inside the demo folder. Run ```npm install && node demo.js```and open your browser at [localhost:3000](http://localhost:3000) to play around a little bit.
+There is a [demo](https://github.com/patrickpissurno/li-template/tree/master/demo) where you can play around and learn by yourself. Just clone this repo and you'll find it inside the demo folder. Run ```npm install && node demo.js```and open your browser at [localhost:3000](http://localhost:3000) to play around a little bit. Or see a [running example here](https://patrickpissurno.com.br/li-template)
 
 ## Downloads
 - Source code on [GitHub](https://github.com/patrickpissurno/li-template)
 - Get it from [NPM](https://www.npmjs.com/package/li-template)
+- Documentation [page](https://patrickpissurno.com.br/li-template)
 
 ## License
 MIT License
 
-Copyright (c) 2018 Patrick Pissurno
+Copyright (c) 2018 [Patrick Pissurno](https://patrickpissurno.com.br/)
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
