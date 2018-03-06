@@ -1,6 +1,6 @@
 {
   "name": "li-template",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "HTML template literals view engine with compiler for plain Node.js modules",
   "main": "./lit.js",
   "types": "./lit.d.ts",
