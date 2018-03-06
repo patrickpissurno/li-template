@@ -178,7 +178,7 @@ class Lit {
     }
 
     /**
-     * Compile partials from an string array of file names
+     * Compile partials from a string array of file names
      * @param {string[]} partials An array containing the file names of all partials needed for this template
      * @param {string} [filename] Base template file name
      * @returns An array containing the partials as objects
