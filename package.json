@@ -2,7 +2,8 @@
   "name": "li-template",
   "version": "1.0.3",
   "description": "HTML template literals view engine with compiler for plain Node.js modules",
-  "main": "lit.js",
+  "main": "./lit.js",
+  "types": "./lit.d.ts",
   "bin": {
     "li-template": "./lit-cli.js"
   },

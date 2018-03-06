@@ -118,13 +118,13 @@ class Lit {
 
     /**
      * Compile a template in order to use the view engine by passing its raw content as string
-     * @param {string} str Template raw content as string
+     * @param {string} raw Template raw content as string
      * @param {Object[]} partials Array of already compiled partial files
      * @param {string} [filename] A string name that will be used as Node compiled module name. If omitted, random string is used
      * @returns The compiled render function that is used to render the template
      * @memberof Lit
      */
-    async compile(str, partials, opt = { filename: null, precompiled: null }){
+    async compile(raw, partials, opt = { filename: null, precompiled: null }){
         const m = new module.constructor();
         m.paths = module.paths;
         let template = `
@@ -142,7 +142,7 @@ class Lit {
                     return htmlEscapes[match];
                 });
             };
-            ${opt.precompiled == null ? this.precompile(str) : opt.precompiled}`;
+            ${opt.precompiled == null ? this.precompile(raw) : opt.precompiled}`;
         try
         {
             m._compile(template, opt.filename == null ? await rand() : opt.filename);
@@ -181,7 +181,7 @@ class Lit {
      * Compile partials from an string array of file names
      * @param {string[]} partials An array containing the file names of all partials needed for this template
      * @param {string} [filename] Base template file name
-     * @returns The compiled render function that is used to render the template
+     * @returns An array containing the partials as objects
      * @memberof Lit
      */
     async compilePartials(partials, filename){
