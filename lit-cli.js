@@ -123,7 +123,12 @@ if(cmd.input != null && cmd.output != null){
                         if(renderPartials && data[i].partials != null)
                         {
                             let partialsDir = path.dirname(inputFiles[i]);
-                            partials = await lit.compilePartials(data[i].partials.map(x => path.join(partialsDir, x)));
+                            partials = await lit.compilePartials(data[i].partials.map(x => {
+                                if(typeof(x) === 'string')
+                                    return path.join(partialsDir, x);
+                                x.file =  path.join(partialsDir, x.file);
+                                return x;
+                            }));
                         }
                         
                         delete data[i].partials;

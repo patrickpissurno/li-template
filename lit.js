@@ -187,16 +187,17 @@ class Lit {
     async compilePartials(partials, filename){
         if(partials == null)
             return null;
-
-        var compiled = [];
         
-        let result = await Promise.all(partials.map(async x => ({
-            render: await this.compile((await readFile(x)).toString(), compiled, path.parse(x).name + '_' + (filename == null ? await rand() : filename)),
-            name: path.parse(x).name
-        })));
-
-        result.forEach(x => compiled.push(x));
-        return result;
+        return await Promise.all(partials.map(async x => {
+            return typeof(x) == 'string' ? {
+                render: await this.compile((await readFile(x)).toString(), null, path.parse(x).name + '_' + (filename == null ? await rand() : filename)),
+                name: path.parse(x).name
+            } :
+            {
+                render: await this.compile((await readFile(x.file)).toString(), await this.compilePartials(x.partials, x.file), path.parse(x.file).name + '_' + (filename == null ? await rand() : filename)),
+                name: path.parse(x.file).name
+            };
+        }));
     }
 
     /**
