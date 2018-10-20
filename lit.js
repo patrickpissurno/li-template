@@ -79,7 +79,7 @@ function transpile(str){
             
             let arr = str.substring(start, end).split(':').map(x => x.trim());
 
-            let blockStart = end + 2;
+            let blockStart = str.indexOf('{', end) + 1;
             let blockEnd = getClosing(str, blockStart - 1);
             let block = str.substring(blockStart, blockEnd - 1);
 
