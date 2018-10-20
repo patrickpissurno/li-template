@@ -66,7 +66,7 @@ function transpile(str){
             let blockEnd = getClosing(str, blockStart - 1);
             let block = str.substring(blockStart, blockEnd - 1);
 
-            lastMatchIndex = blockEnd;
+            lastMatchIndex = blockEnd - 1;
 
             index = blockEnd + 1;
 
@@ -83,7 +83,7 @@ function transpile(str){
             let blockEnd = getClosing(str, blockStart - 1);
             let block = str.substring(blockStart, blockEnd - 1);
 
-            lastMatchIndex = blockEnd;
+            lastMatchIndex = blockEnd - 1;
 
             index = blockEnd + 1;
 
