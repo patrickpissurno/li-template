@@ -184,11 +184,18 @@ class Lit {
      * @returns An array containing the partials as objects
      * @memberof Lit
      */
-    async compilePartials(partials, filename){
+    async compilePartials(partials, filename, precompiled = false){
         if(partials == null)
             return null;
         
         return await Promise.all(partials.map(async x => {
+            if(precompiled){
+                return {
+                    render: await this.compile('', await this.compilePartials(x.partials, x.file, precompiled), { precompiled: x.precompiled, filename: path.parse(x.file).name + '_' + (filename == null ? await rand() : filename)}),
+                    name: path.parse(x.file).name
+                };
+            }
+
             return typeof(x) == 'string' ? {
                 render: await this.compile((await readFile(x)).toString(), null, path.parse(x).name + '_' + (filename == null ? await rand() : filename)),
                 name: path.parse(x).name

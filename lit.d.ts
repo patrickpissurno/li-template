@@ -15,6 +15,12 @@ declare namespace Lit {
         (data: object): string;
     }
 
+    export interface PrecompiledPartial {
+        partials?: PrecompiledPartial[],
+        file: string,
+        precompiled: string
+    }
+
     /**
      * 
      * Async compile a template by passing its raw content
@@ -45,6 +51,17 @@ declare namespace Lit {
      * @returns {Promise<IPartial[]>} Array of compiled partial files wrapped in a Promise
      */
     export function compilePartials(partialsFileNames: string[], templateName?: string): Promise<IPartial[]>;
+
+    /**
+     * 
+     * Async compile partials from a string array of file names
+     * @export
+     * @param {PrecompiledPartial[]} partials An array containing the file names of all partials needed for this template
+     * @param {string} [templateName] This template's file name
+     * @param {boolean} [precompiled] Are the partials already pre-compiled?
+     * @returns {Promise<IPartial[]>} Array of compiled partial files wrapped in a Promise
+     */
+    export function compilePartials(partials: PrecompiledPartial[], templateName: string, precompiled: boolean): Promise<IPartial[]>;
 
     /**
      * 
