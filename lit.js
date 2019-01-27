@@ -62,11 +62,11 @@ function transpile(str){
 
             let variable = str.substring(start, end - 1);
 
-            let blockStart = end + 2;
+            let blockStart = str.indexOf('{', end) + 1;
             let blockEnd = getClosing(str, blockStart - 1);
             let block = str.substring(blockStart, blockEnd - 1);
 
-            lastMatchIndex = blockEnd;
+            lastMatchIndex = blockEnd - 1;
 
             index = blockEnd + 1;
 
@@ -79,11 +79,11 @@ function transpile(str){
             
             let arr = str.substring(start, end).split(':').map(x => x.trim());
 
-            let blockStart = end + 2;
+            let blockStart = str.indexOf('{', end) + 1;
             let blockEnd = getClosing(str, blockStart - 1);
             let block = str.substring(blockStart, blockEnd - 1);
 
-            lastMatchIndex = blockEnd;
+            lastMatchIndex = blockEnd - 1;
 
             index = blockEnd + 1;
 
