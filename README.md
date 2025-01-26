@@ -89,7 +89,7 @@ There is a [demo](https://github.com/patrickpissurno/li-template/tree/master/dem
 ## License
 MIT License
 
-Copyright (c) 2018-2019 [Patrick Pissurno](https://patrickpissurno.com.br/)
+Copyright (c) 2018-2025 [Patrick Pissurno](https://patrickpissurno.com.br/)
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
