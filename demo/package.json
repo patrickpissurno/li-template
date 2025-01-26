@@ -10,6 +10,6 @@
   "author": "Patrick Pissurno",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.21.2"
   }
 }
